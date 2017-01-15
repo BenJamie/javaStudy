@@ -7,7 +7,8 @@ public class Repository<E> {
 
     private final EntityManager em = Persistence.createEntityManagerFactory("training").createEntityManager();
     private final Class<E> entityClass;
-
+    
+    // a constructor for runtime type class issue = > <E>.class in find() method.
     public Repository(Class<E> entityClass) {
 	super();
 	this.entityClass = entityClass;
