@@ -55,9 +55,9 @@ public class ContactServlet extends HttpServlet {
 	    // persist
 	    Address address = new Address(request.getParameter("street"), request.getParameter("city"),
 		    request.getParameter("state"), request.getParameter("zip"));
-	    addressRepository.save(address);
+	    address = addressRepository.save(address);
 	    Contact contact = new Contact(request.getParameter("name"), address.getId());
-	    contactRepository.save(contact);
+	    contact = contactRepository.save(contact);
 	    response.sendRedirect("contacts?id=" + contact.getId());
 	} else if (request.getParameter("edit") != null) {
 	    Long id = Long.parseLong(request.getParameter("id"));

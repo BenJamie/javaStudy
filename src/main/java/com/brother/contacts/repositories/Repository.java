@@ -1,7 +1,10 @@
 package com.brother.contacts.repositories;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+
 
 public class Repository<E> {
 
@@ -17,9 +20,17 @@ public class Repository<E> {
     public E find(long id) {
 	return em.find(entityClass, id);
     }
+    
+    public List<E> findAll(){
+	return em.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
+	
+    }
 
-    public void save(E entity) {
-	em.merge(entity);
+    public E save(E entity) {
+	em.getTransaction().begin();
+	entity = em.merge(entity);
+	em.getTransaction().commit();
+	return entity;
     }
 
     public void delete(E entity) {
